@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,4 +74,44 @@
     @endforeach
     <a href="{{ route('tasks.create') }}" class="create-task">Create New Task</a>
 </body>
-</html>
+</html> --}}
+
+
+@extends('layouts.app')
+
+@section('title', 'Task List')
+
+@section('content')
+<div class="container">
+    <h1 class="my-4">Task List</h1>
+    
+    <div class="mb-3">
+        <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
+    </div>
+
+    @if($tasks->isEmpty())
+        <div class="alert alert-warning">Tidak ada tugas yang ditemukan.</div>
+    @else
+        <div class="list-group">
+            @foreach ($tasks as $task)
+                <div class="list-group-item">
+                    <h5>{{ $task->title }}</h5>
+                    <p>{{ $task->description }}</p>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                        <small class="text-muted">Created at: {{ $task->created_at->format('d M Y H:i') }}</small>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
+@endsection
+

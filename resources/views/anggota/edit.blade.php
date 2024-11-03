@@ -5,7 +5,7 @@
 <div class="container">
     <h1>Edit Anggota</h1>
 
-    <form action="{{ route('anggota.update', $anggota->id_anggota) }}" method="POST">
+    <form action="{{ route('anggota.update', $anggota->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">

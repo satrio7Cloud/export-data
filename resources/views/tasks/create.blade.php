@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,4 +90,27 @@
         <a href="{{ route('tasks.index') }}" class="back-link">Back to Task List</a>
     </div>
 </body>
-</html>
+</html> --}}
+
+
+@extends('layouts.app')
+
+@section('title', 'Create Task')
+
+@section('content')
+<div class="container">
+    <h1>Create New Task</h1>
+    <form action="{{ route('tasks.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="title">Task Title</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Task Description</label>
+            <textarea name="description" id="description" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Task</button>
+    </form>
+</div>
+@endsection

@@ -11,7 +11,7 @@ class DataAnggota extends Model
 
     protected $table = 'tbl_anggota';
 
-    protected $primaryKey = 'id_anggota';
+    protected $primaryKey = 'id';
 
     protected $timestamp = true;
 

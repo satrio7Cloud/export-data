@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('tasks', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('title');
-        //     $table->text('description')->nullable();
-        //     $table->boolean('is_completed')->default(false);
-        //     $table->timestamps();
-        // });
+        Schema::create('cuti', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_karyawan')->constrained('karyawan')->onDelete('cascade');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
+        Schema::dropIfExists('cuti');
     }
 };
