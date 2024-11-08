@@ -3,7 +3,13 @@
 @section('title', 'Daftar Shift')
 
 @section('content')
-<h2>Daftar Shift</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Daftar Shift</h2>
+    <a href="{{ route('shift.create') }}" class="btn btn-primary mb-3">Tambah Shift</a>
+
+</div>
+
 
 <!-- Tampilkan pesan sukses jika ada -->
 @if(session('success'))
@@ -12,21 +18,13 @@
     </div>
 @endif
 
-<a href="{{ route('shift.create') }}" class="btn btn-primary mb-3">Tambah Shift</a>
 
-<div class="mb-4 d-flex gap-4">
+<div class="d-flex justify-content-end mb-4">
     <form action="{{ route('shift.import.excel') }}" method="POST" enctype="multipart/form-data" class="d-inline-flex align-items-center gap-2">
         @csrf
         <label for="excelFile" class="form-label mb-0">Import Excel:</label>
         <input type="file" name="file" id="excelFile" accept=".xlsx, .xls" required>
         <button type="submit" class="btn btn-success">Impor Excel</button>
-    </form>
-
-    <form action="{{ route('shift.import.pdf') }}" method="POST" enctype="multipart/form-data" class="d-inline-flex align-items-center gap-2">
-        @csrf
-        <label for="pdfFile" class="form-label mb-0">Import PDF:</label>
-        <input type="file" name="file" id="pdfFile" accept=".pdf" required>
-        <button type="submit" class="btn btn-danger">Impor PDF</button>
     </form>
 </div>
 

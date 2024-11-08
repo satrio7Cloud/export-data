@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Smalot\PdfParser\Parser;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KaryawanController extends Controller
 {
@@ -78,21 +80,6 @@ class KaryawanController extends Controller
         return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil diimpor dari Excel.');
     }
 
-    public function importPDF(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:pdf'
-        ]);
-
-        $file = $request->file('file');
-        $path = $file->storeAs('imports', $file->getClientOriginalName());
-
-        // PDF parsing can be complex; generally, you would use additional tools like OCR
-        // However, here we'll just save the PDF and notify the user
-        // Parsing actual data from PDF would require a more specialized library or service
-
-        return redirect()->route('karyawan.index')->with('success', 'File PDF berhasil diunggah, tetapi parsing belum didukung.');
-    }
 
     /**
      * Display the specified resource.

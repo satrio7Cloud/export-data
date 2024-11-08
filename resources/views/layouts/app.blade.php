@@ -86,6 +86,26 @@
         .toggle-btn:hover {
             background-color: #0056b3;
         }
+
+        /* Login and Register Button styling */
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .auth-buttons a {
+            margin-left: 10px;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .auth-buttons a:hover {
+            background-color: #0056b3;
+        }
+
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -96,22 +116,44 @@
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <h4>Navigation</h4>
-        <a href="{{ route('tasks.index') }}">Tasks</a>
-        <a href="{{ route('anggota.index') }}">Data Anggota</a>
-        {{-- <a href="{{ route('anggota.index') }}">Statsu saat ini</a> --}}
+        <br>
+        <br>
+        {{-- <li><a href="{{ url('/home') }}">Home</a></li> --}}
+        <a href="{{ route('home') }}">Home</a>
+        <a href="{{ route('attendance.report') }}">Laporan Kehadiran</a>
+        <a href="{{ route('absensi.index') }}">Absensi</a>
         <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
         <a href="{{ route('shift.index') }}">Shift</a>
         <a href="{{ route('cuti.index') }}">Cuti</a>
         <a href="{{ route('libur.index') }}">Libur</a>
-        <a href="{{ route('absensi.index') }}">Absensi</a>
         <a href="{{ route('izin.index') }}">Izin</a>
-        <a href="{{ route('attendance.report') }}">Laporan Kehadiran</a>
+        <a href="{{ route('tasks.index') }}">Tasks</a>
+        <a href="{{ route('anggota.index') }}">Data Anggota</a>
     </div>
+
+    <!-- Auth Buttons (Login & Register) at the top-right -->
+    <div class="auth-buttons">
+        @if(Auth::check())
+            <!-- Jika sudah login, tampilkan tombol logout -->
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+    
+            <!-- Form logout (untuk memastikan logout aman menggunakan POST) -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+                <input type="hidden" name="token" value="{{ auth()->user()->api_token }}">
+            </form>
+            
+        @else
+            <!-- Jika belum login, tampilkan tombol login dan register -->
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Register</a>
+        @endif
+    </div>
+    
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <header>My Application</header>
+        <header>Absensi Karyawan</header>
         <main class="container my-4">
             @yield('content')
         </main>

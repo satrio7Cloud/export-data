@@ -85,27 +85,6 @@ class AttendanceController extends Controller
             ];
         }
 
-        // Tambahkan karyawan yang tidak hadir pada hari-hari yang seharusnya mereka kerjakan
-        foreach ($allKaryawan as $karyawan) {
-            $isAbsent = !in_array($karyawan->id, $attendedKaryawanIds) && !in_array($karyawan->id, $izinKaryawanIds);
-
-            // Periksa apakah karyawan dijadwalkan bekerja pada hari non-libur
-            foreach (range(1, Carbon::now()->daysInMonth) as $day) {
-                $tanggal = Carbon::createFromDate(null, null, $day)->format('Y-m-d');
-
-                if ($isAbsent && !in_array($tanggal, $holidays)) {
-                    $report[] = [
-                        'id_karyawan' => $karyawan->id,
-                        'nama_karyawan' => $karyawan->nama,
-                        'tanggal' => $tanggal,
-                        'jam_masuk' => null,
-                        'jam_pulang' => null,
-                        'status' => 'Tidak Hadir'
-                    ];
-                }
-            }
-        }
-
         return $report;
     }
     
